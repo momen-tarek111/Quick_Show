@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useClerk, UserButton, useUser } from "@clerk/react"
 import { useAppContext } from "../context/AppContext"
 function Navbar() {
-    const {favoriteMovies}=useAppContext()
+    const {favoriteMovies,isAdmin}=useAppContext()
     
     const [isOpen,setIsOpen]=useState(false)
     const {user}=useUser()
@@ -26,6 +26,7 @@ function Navbar() {
             <Link onClick={()=>{scrollTo(0,0);setIsOpen(false)}} to="/">Theaters</Link>
             <Link onClick={()=>{scrollTo(0,0);setIsOpen(false)}} to="/">Releases</Link>
             {favoriteMovies.length>0&&<Link onClick={()=>{scrollTo(0,0);setIsOpen(false)}} to="/favorite">Favorites</Link>}
+            {isAdmin&&<Link onClick={()=>{scrollTo(0,0);setIsOpen(false)}} to="/admin">Admin Dashboard</Link>}
         </div>
         <div className="flex items-center gap-8">
             <SearchIcon className="max-md:hidden w-6 h-6 cursor-pointer"/>
