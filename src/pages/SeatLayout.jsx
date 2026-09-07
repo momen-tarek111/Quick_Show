@@ -75,7 +75,6 @@ function SeatLayout() {
       Authorization:`Bearer ${await getToken()}`}})
       if(data.success){
         window.location.href=data.url;
-
       }else{
         toast.error(data.message)
       }

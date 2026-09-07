@@ -18,6 +18,13 @@ function MovieDetails() {
     try {
       const {data}=await axios.get(`/api/show/${id}`)
       if(data.success){
+        const sortedDateTime = Object.fromEntries(
+          Object.entries(data.dateTime).sort(
+            ([dateA], [dateB]) => new Date(dateA) - new Date(dateB)
+          )
+        );
+        data.dateTime=sortedDateTime
+        console.log(data.dateTime)
         setShow(data)
       }
     } catch (error) {
@@ -81,7 +88,6 @@ function MovieDetails() {
         </div>
       </div>
       <DateSelect dateTime={show.dateTime} id={id}/>
-
       <p className="text-lg font-medium mt-20 mb-8">You May Also Like</p>
       <div className="flex flex-wrap max-sm:justify-center gap-8">
         {shows.slice(0,4).map((movie,index)=>(
