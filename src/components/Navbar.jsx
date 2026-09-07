@@ -5,8 +5,7 @@ import { useState } from "react"
 import { useClerk, UserButton, useUser } from "@clerk/react"
 import { useAppContext } from "../context/AppContext"
 function Navbar() {
-    const {favoriteMovies,isAdmin}=useAppContext()
-    
+    const {favoriteMovies,isAdmin,bookings}=useAppContext()
     const [isOpen,setIsOpen]=useState(false)
     const {user}=useUser()
     const {openSignIn}=useClerk()
@@ -36,7 +35,7 @@ function Navbar() {
                 ):(
                     <UserButton>
                         <UserButton.MenuItems>
-                            <UserButton.Action label="My Bookings" labelIcon={<TicketPlus width={15}/>} onClick={()=>navigate('/my-bookings')}/>
+                            {bookings.length >0 &&<UserButton.Action label="My Bookings" labelIcon={<TicketPlus width={15}/>} onClick={()=>navigate('/my-bookings')}/>}
                         </UserButton.MenuItems>
                     </UserButton>
                 )

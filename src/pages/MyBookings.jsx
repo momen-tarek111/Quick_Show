@@ -8,27 +8,8 @@ import { Link } from "react-router-dom"
 
 function MyBookings() {
   const currency=import.meta.env.VITE_CURRENCY
-  const {axios,user,getToken,image_base_url}=useAppContext();
-  const [bookings,setBookings]=useState([])
-  const [isLoading,setIsLoading]=useState(true)
-  const getMyBookings=async()=>{
-    try {
-      const {data} =await axios.get('/api/user/bookings',{headers:{
-      Authorization:`Bearer ${await getToken()}`}})
-      if(data.success){
-        setBookings(data.bookings)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    setIsLoading(false)
-  }
-  useEffect(()=>{
-    if(user){
-      getMyBookings()
-    }
-  },[user])
-  return !isLoading ?(
+  const {bookings,user,image_base_url}=useAppContext();
+  return bookings.length>0 ?(
     <div className="relative px-6 md:px-16 lg:px-40 md:pt-40 min-h-[80vh]">
       <BlurCircle top="100px" left="100px"/>
       <div>
@@ -59,7 +40,9 @@ function MyBookings() {
       ))}
     </div>
   ):(
-    <Loading/>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-3xl font-bold text-center">No Bookings available</h1>
+    </div>
   )
 }
 
