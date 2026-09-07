@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { assets} from "../assets/assets"
 import Loading from "../components/Loading"
-import { ArrowRightIcon, ClockIcon } from "lucide-react"
+import { ArrowRightIcon, ClockIcon , DollarSign } from "lucide-react"
 import isoTimeFormat from "../lib/isoTimeFormat"
 import BlurCircle from "../components/BlurCircle"
 import toast from "react-hot-toast"
@@ -20,6 +20,7 @@ function SeatLayout() {
   const getShow=async()=>{
     try {
       const {data}=await axios.get(`/api/show/${id}`)
+      console.log(data)
       if(data.success){
         setShow(data)
       }
@@ -84,7 +85,6 @@ function SeatLayout() {
   }
 
   useEffect(()=>{
-
     getShow()
     console.log(show)
   },[])
@@ -100,9 +100,16 @@ function SeatLayout() {
         <p className="text-lg font-semibold px-6">Available Timings</p>
         <div className="mt-5 space-y-1">
           {show.dateTime[date].map((item)=>(
-            <div key={item.item} onClick={()=>setSelectedTime(item)} className={`flex items-center gap-2 px-6 py-2 w-max rounded-r-md cursor-pointer transition ${selectedTime?.time===item.time ?"bg-primary text-white":"hover:bg-primary/20"}`}>
-              <ClockIcon className="w-4 h-4"/>
-              <p className="text-sm">{isoTimeFormat(item.time)}</p>
+            <div key={item.item} onClick={()=>{setSelectedTime(item); console.log(item)}} className={`flex items-center justify-between gap-2 px-4 py-3 w-max rounded-r-md cursor-pointer transition ${selectedTime?.time===item.time ?"bg-primary text-white":"hover:bg-primary/20"}`}>
+              <div className="flex items-center gap-2">
+                <ClockIcon className="w-4 h-4"/>
+                <p className="text-sm">{isoTimeFormat(item.time)}</p>
+              </div>
+              |
+              <div className="flex items-center gap-1">
+                <DollarSign className="w-4 h-4"/>
+                <p className="text-sm">{item.price} EGP</p>
+              </div>
             </div>
           ))}
         </div>
