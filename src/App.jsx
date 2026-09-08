@@ -16,6 +16,7 @@ import ListBookings from "./pages/admin/ListBookings"
 import {useAppContext} from "./context/AppContext"
 import { SignIn } from "@clerk/react"
 import Loading from "./components/Loading"
+import NotFound from "./components/NotFound"
 function App() {
   const isAdminRoute =useLocation().pathname.startsWith("/admin");
   const {user}=useAppContext()
@@ -49,6 +50,7 @@ function App() {
           <Route path="list-shows" element={<ListShows/>}/>
           <Route path="list-bookings" element={<ListBookings/>}/>
         </Route>
+        <Route path="*" element={<NotFound/>} />
       </Routes>
       {!isAdminRoute&&<Footer/>}
     </>
