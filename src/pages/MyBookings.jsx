@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 
 function MyBookings() {
   const currency=import.meta.env.VITE_CURRENCY
-  const {bookings,user,image_base_url}=useAppContext();
+  const {bookings,image_base_url}=useAppContext();
   return bookings.length>0 ?(
     <div className="relative px-6 md:px-16 lg:px-40 md:pt-40 min-h-[80vh]">
       <BlurCircle top="100px" left="100px"/>

@@ -27,8 +27,16 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/movies" element={<Movies/>}/>
         <Route path="/movies/:id" element={<MovieDetails/>}/>
-        <Route path="/movies/:id/:date" element={<SeatLayout/>}/>
-        <Route path="/my-bookings" element={<MyBookings/>}/>
+        <Route path="/movies/:id/:date" element={user?<SeatLayout/>:(
+          <div className="min-h-screen flex justify-center items-center">
+            <SignIn fallbackRedirectUrl={'/movies'}/>
+          </div>
+        )}/>
+        <Route path="/my-bookings" element={user?<MyBookings/>:(
+          <div className="min-h-screen flex justify-center items-center">
+            <SignIn fallbackRedirectUrl={'/my-bookings'}/>
+          </div>
+        )}/>
         <Route path="/loading/:nextUrl" element={<Loading/>}/>
         <Route path="/favorite" element={<Favorite/>}/>
         <Route path="/admin/*" element={user?<Layout/>:(
